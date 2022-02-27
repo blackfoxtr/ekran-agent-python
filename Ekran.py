@@ -7,7 +7,11 @@ if __name__ == '__main__':
   if agent == None:
     raise Exception('No agent available')
   database = get_database()
+  # We need to start polling.
   while True:
+    # Get stats
     stats = agent.stats()
+    # "Store" stats
     database.store(stats)
-    sleep(int(config('EKRAN_TIMEOUT', 15)))
+    # Wait for next cycle
+    sleep(int(config('EKRAN_INTERVAL', 15)))
